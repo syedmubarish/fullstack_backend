@@ -10,9 +10,20 @@ async function getStudent(req, res, next) {
 
     const santisedId = matchedData(req).id;
 
-    const student = await StudentModel.findOne({ where: { id: santisedId } });
-    if(!student){
-        return res.sendStatus(404)
+    console.log(req.user.id);
+    let student;
+
+    if (req.user.id != santisedId) {
+      student = await StudentModel.findOne({
+        where: { id: santisedId },
+        attributes: { exclude: ["password"] },
+      });
+    } else {
+      student = await StudentModel.findOne({ where: { id: santisedId } });
+    }
+
+    if (!student) {
+      return res.sendStatus(404);
     }
     return res.status(200).send(student);
   } catch (error) {

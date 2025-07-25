@@ -7,6 +7,7 @@ const loginStudentSchema = require("../validation/loginStudentSchema");
 const getAllStudents = require("../controllers/getAllStudentsCtrl");
 const getStudent = require("../controllers/getStudentCtrl");
 const { param } = require("express-validator");
+const verifyToken = require("../middlewares/jwtAuthMiddleware");
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.get("/students", getAllStudents);
 router.get(
   "/students/:id",
   param("id").isNumeric().withMessage("Id should be number"),
+  verifyToken,
   getStudent
 );
 
