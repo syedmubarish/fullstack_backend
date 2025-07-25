@@ -1,9 +1,9 @@
 const express = require("express")
 const dotenv = require("dotenv")
-
-
-const app = express()
 dotenv.config({ quiet: true })
+
+require("./config/db")
+const app = express()
 
 app.get("/",(req,res)=>{
     res.sendStatus(200)
