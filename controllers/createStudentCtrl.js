@@ -1,7 +1,11 @@
 const bcrypt = require("bcrypt");
 const { StudentModel } = require("../models/studentModel");
+const { validationResult, matchedData } = require("express-validator");
 
 async function createStudent(req, res, next) {
+  const result = validationResult(req)
+  console.log(result);
+  
   const { username, password, course } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -16,4 +20,4 @@ async function createStudent(req, res, next) {
   }
 }
 
-module.exports = createStudent ;
+module.exports = createStudent;

@@ -15,6 +15,7 @@ const StudentModel = sequelize.define(
     },
     course: {
       type: DataTypes.STRING,
+      defaultValue : "No course"
     },
   },
   {
