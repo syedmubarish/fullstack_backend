@@ -4,9 +4,9 @@ dotenv.config({ quiet: true });
 
 const { sequelize, dbAuth } = require("./config/db");
 const { StudentModel } = require("./models/studentModel");
-const createStudent = require("./controllers/createStudentCtrl");
-const { loginStudent } = require("./controllers/loginStudentCtrl");
+
 const verifyToken = require("./middlewares/jwtAuthMiddleware");
+const Studentrouter = require("./routes/student");
 const app = express();
 
 app.use(express.json());
@@ -18,9 +18,7 @@ app.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
-app.post("/signup", createStudent);
-
-app.post("/login", loginStudent);
+app.use(Studentrouter)
 
 app.get("/test", verifyToken, (req, res) => {
   res.sendStatus(200);
