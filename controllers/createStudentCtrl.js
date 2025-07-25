@@ -3,12 +3,12 @@ const { StudentModel } = require("../models/studentModel");
 const { validationResult, matchedData } = require("express-validator");
 
 async function createStudent(req, res, next) {
-  const result = validationResult(req)
-  if(!result.isEmpty()){
-    return res.status(400).json({error:result})
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    return res.status(400).json({ error: result });
   }
   console.log(matchedData(req));
-  
+
   const { username, password, course } = matchedData(req);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
