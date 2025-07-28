@@ -11,12 +11,12 @@ function verifyToken(req, res, next) {
         .json({ msg: "Authorization header missing or malformed token" });
     }
     const token = req.headers.authorization.split(" ")[1];
-    console.log(token);
+    // console.log(token);
 
     const decodedToken = jwt.verify(token, process.env.secret);
     console.log(decodedToken);
     req.user = { id: decodedToken.id };
-    console.log(req.user);
+    // console.log(req.user);
 
     next();
   } catch (error) {

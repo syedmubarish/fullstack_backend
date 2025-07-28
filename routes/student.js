@@ -1,13 +1,15 @@
 const express = require("express");
 const createStudent = require("../controllers/createStudentCtrl");
 const { loginStudent } = require("../controllers/loginStudentCtrl");
-const { checkSchema } = require("express-validator");
+const { checkSchema, body } = require("express-validator");
 const createStudentSchema = require("../validation/createStudentSchema");
 const loginStudentSchema = require("../validation/loginStudentSchema");
+const updateStudentSchema = require("../validation/updateStudentSchema");
 const getAllStudents = require("../controllers/getAllStudentsCtrl");
 const getStudent = require("../controllers/getStudentCtrl");
 const { param } = require("express-validator");
 const verifyToken = require("../middlewares/jwtAuthMiddleware");
+const updateStudent = require("../controllers/updateStudentCtrl");
 
 const router = express.Router();
 
@@ -22,6 +24,13 @@ router.get(
   param("id").isNumeric().withMessage("Id should be number"),
   verifyToken,
   getStudent
+);
+
+router.patch(
+  "/students/:id",
+  verifyToken,
+  checkSchema(updateStudentSchema),
+  updateStudent
 );
 
 module.exports = router;
