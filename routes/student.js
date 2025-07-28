@@ -10,6 +10,7 @@ const getStudent = require("../controllers/getStudentCtrl");
 const { param } = require("express-validator");
 const verifyToken = require("../middlewares/jwtAuthMiddleware");
 const updateStudent = require("../controllers/updateStudentCtrl");
+const deleteStudent = require("../controllers/deleteStudentCtrl");
 
 const router = express.Router();
 
@@ -31,6 +32,13 @@ router.patch(
   verifyToken,
   checkSchema(updateStudentSchema),
   updateStudent
+);
+
+router.delete(
+  "/students/:id",
+  param("id").isNumeric().withMessage("Id should be number"),
+  verifyToken,
+  deleteStudent
 );
 
 module.exports = router;
