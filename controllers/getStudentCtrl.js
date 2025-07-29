@@ -10,7 +10,7 @@ async function getStudent(req, res, next) {
 
     const santisedId = matchedData(req).id;
 
-    console.log(req.user.id);
+    
     let student;
 
     if (req.user.id != santisedId) {

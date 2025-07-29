@@ -8,7 +8,7 @@ async function createStudent(req, res, next) {
     return res.status(400).json({ error: result });
   }
   
-  console.log(matchedData(req));
+  
 
   const { username, password, course } = matchedData(req);
   try {
